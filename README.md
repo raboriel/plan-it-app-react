@@ -16,6 +16,6 @@ Bucket List app was built using Node.js, Javascript, React, CSS, Rails
 Our inspiration for this app came from https://bucketlist.org/. Which is a website built on the idea of sharing travel goals with the community so others can enjoy the experience as well. We began this project by first discussing some ideas then came to an agreement on one. From there we created a Trello board to create a detailed outline for what needed to be done in order to create our project on time. We also made it clear to use separate branches on github to push up for everyone to review code to make sure there were no merging conflicts before pushing to master. We then talked daily over zoom and slack to make sure we were all on track and on the same page. These minor things helped us immensely.
 
 ## Using the App
-
+MVP functionality: 
 
 ## Unsolved problems
