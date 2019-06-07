@@ -7,12 +7,15 @@ import Form from './components/Form'
 class App extends Component {
   constructor(props) {
     super(props)
+    
   }
 
   render () {
     return (
       <div className="main-container">
-        hello~
+        <Header />
+        <Form />
+        <Lists />
       </div>
     );
   }

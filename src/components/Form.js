@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 
 
-// create the class and have it render the following:
 class Form extends Component {
 
   render () {

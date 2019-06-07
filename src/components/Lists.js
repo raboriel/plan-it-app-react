@@ -5,7 +5,7 @@ class Lists extends Component {
   render () {
     return (
       <div className="lists">
-       this is lists
+       <TheList />
       </div>
     )
   }
