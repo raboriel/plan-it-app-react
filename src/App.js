@@ -15,14 +15,12 @@ class App extends Component {
     // Add binds below
     this.handleView = this.handleView.bind(this)
     this.fetchLists = this.fetchLists.bind(this)
-    this.setLists = this.setLists.bind(this)
     this.updateArray = this.updateArray.bind(this)
     this.handleCreateList = this.handleCreateList.bind(this)
-    this.handleCheck = this.handleCheck.bind(this)
     this.removeFromArray = this.removeFromArray.bind(this)  }
 
   // create a list from server
-  handleCreateTask(task) {
+  handleCreateList(task) {
     // add server address later
     fetch('heroku server address here', {
       body: JSON.stringify(task),
@@ -83,14 +81,14 @@ class App extends Component {
 
     let bucketLists = []
 
-    bucketLists.push(list)
+    bucketLists.push(lists)
 
   }
 
 
   // run one time only lifecycle method...
   componentDidMount() {
-     this.fetchTasks()
+     this.fetchLists()
   }
 
   render () {
