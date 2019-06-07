@@ -13,8 +13,13 @@ class App extends Component {
       doneCount: 0
     }
     // Add binds below
-    this.handleCreateTask = this.handleCreateTask.bind(this)
-  }
+    this.handleView = this.handleView.bind(this)
+    this.fetchLists = this.fetchLists.bind(this)
+    this.setLists = this.setLists.bind(this)
+    this.updateArray = this.updateArray.bind(this)
+    this.handleCreateList = this.handleCreateList.bind(this)
+    this.handleCheck = this.handleCheck.bind(this)
+    this.removeFromArray = this.removeFromArray.bind(this)  }
 
   // create a list from server
   handleCreateTask(task) {
@@ -36,6 +41,58 @@ class App extends Component {
     .catch(err => console.log(err))
   }
 
+    // updateArray( {list_item: 'newsomething'}, 'bucketLists')
+  updateArray(list,array){
+    this.setState( prevState => ({
+      [array]:[...prevState[array],list]
+    }))
+  }
+
+
+  removeFromArray(array, arrayIndex){
+    this.setState(prevState => {
+      prevState[array].splice(arrayIndex, 1)
+      return {
+        [array]: prevState[array]
+      }
+    })
+    // this.setState( prevState => ({
+    //   [array]: [...prevState[array].splice(arrayIndex, 1)]
+    // }))
+  }
+
+  handleView(view) {
+    // updating state causes a render
+    this.setState({
+      currentView: view
+    })
+  }
+
+  fetchLists() {
+
+    fetch('heroku server address here')
+    // http://herokuaddress/bucketlists
+     .then( data => data.json())
+     .then( jData => {
+       console.log('this is jData', jData)
+       this.grabLists(jData)
+     })
+  }
+
+  grabLists(lists){
+
+    let bucketLists = []
+
+    bucketLists.push(list)
+
+  }
+
+
+  // run one time only lifecycle method...
+  componentDidMount() {
+     this.fetchTasks()
+  }
+
   render () {
     return (
       <div className="main-container">
@@ -44,7 +101,11 @@ class App extends Component {
         <Form
           handleCreateTask={this.handleCreateTask}
         />
-        <Lists />
+        <Lists
+          currentView={this.state.currentView}
+          handleView={this.handleView}
+          BucketLists={this.state.bucketLists}
+        />
       </div>
     );
   }
