@@ -97,7 +97,7 @@ class App extends Component {
         <Header />
 
         <Form
-          handleCreateTask={this.handleCreateTask}
+          handleCreateList={this.handleCreateList}
         />
         <Lists
           currentView={this.state.currentView}
