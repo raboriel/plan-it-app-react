@@ -2,8 +2,22 @@ body {
   text-align: center;
 }
 
-.header {
-  width: 100%;
+.add_form {
+  background: transparent;
+  border: none;
+  width: 18%;
+  border-bottom: 1px solid lightgray;
+  transition: 0.5s;
+  padding-bottom: 10px;
+  margin: 2%;
+  font-size: .8em;
+}
+
+.add_form:focus {
+  box-shadow: none;
+  border-color: transparent;
+  border-bottom: 1px solid lightgray;
+  font-size: 1.2em;
 }
 
 .form-input {
@@ -13,7 +27,6 @@ body {
   border-bottom: 1px solid lightgray;
   height: auto;
   transition: 0.3s;
-  padding-left: 0px;
   padding-bottom: 10px;
   margin-bottom: 20px;
   font-size: 1.2em;
@@ -29,4 +42,18 @@ body {
 input:focus,
 textarea:focus{
     outline: none;
+}
+
+button {
+  background: transparent;
+  border: none;
+  font-size: 1.0em;
+  transition: 0.5s;
+  color: gray;
+}
+button:hover {
+  box-shadow: none;
+  border-color: transparent;
+  color: black;
+  font-size: 1.3em;
 }

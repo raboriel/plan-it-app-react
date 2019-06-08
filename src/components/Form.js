@@ -39,22 +39,22 @@ class Form extends Component {
     return (
       <div className="form" onSubmit={this.handleSubmit}>
         <form>
-          Title:
          <input type='text'
+         className="add_form"
          placeholder="Title"
          id='title'
          onChange={this.handleChange}
          value={this.state.title}
          />
-          Image URL:
          <input type='text'
+         className="add_form"
          placeholder="Image URL"
          id='imageURL'
          onChange={this.handleChange}
          value={this.state.imageURL}
          />
-          Description:
          <input type='text'
+         className="add_form"
          placeholder="Description"
          id='description'
          onChange={this.handleChange}

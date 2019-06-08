@@ -9,16 +9,18 @@ class App extends Component {
     super(props)
     this.state = {
       listTasks: [],
+      filtered: [],
       likeCount: 0,
-      doneCount: 0,
-      search: ''
+      doneCount: 0
     }
     // Add binds below
     this.handleView = this.handleView.bind(this)
     this.fetchLists = this.fetchLists.bind(this)
     this.updateArray = this.updateArray.bind(this)
     this.handleCreateList = this.handleCreateList.bind(this)
-    this.removeFromArray = this.removeFromArray.bind(this)  }
+    this.removeFromArray = this.removeFromArray.bind(this)
+    this.handleSearch = this.handleSearch.bind(this)
+    }
 
   // create a list from server
   handleCreateList(task) {
@@ -68,7 +70,6 @@ class App extends Component {
   }
 
   fetchLists() {
-
     fetch('heroku server address here')
     // http://herokuaddress/bucketlists
      .then( data => data.json())
@@ -79,11 +80,8 @@ class App extends Component {
   }
 
   grabLists(lists){
-
     let bucketLists = []
-
     bucketLists.push(lists)
-
   }
 
 
@@ -97,12 +95,35 @@ class App extends Component {
     // will be added by Kim
   }
 
+  handleSearch(e) {
+    // Variable to hold the original version of the list
+    let currentList = [];
+    let newList = [];
+    // If the search bar isn't empty
+    if (e.target.value !== "") {
+      // Assign the original list to currentList
+      currentList = this.state.listTasks;
+      newList = currentList.filter(item => {
+        // change current item to lowercase
+        const lc = item.toLowerCase();
+        // change search term to lowercase
+        const filter = e.target.value.toLowerCase();
+        return lc.includes(filter);
+      });
+    } else {
+      newList = this.state.listTasks;
+    }
+    this.setState({
+      filtered: newList
+    });
+  }
+
   render () {
     return (
       <div className="main-container">
         <Header
-          submit={this.onTitleName}
-          text={this.state.search}
+          submit={this.handleSearch}
+          title={this.state.title}
         />
 
         <Form
