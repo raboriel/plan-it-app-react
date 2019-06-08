@@ -10,7 +10,8 @@ class App extends Component {
     this.state = {
       listTasks: [],
       likeCount: 0,
-      doneCount: 0
+      doneCount: 0,
+      search: ''
     }
     // Add binds below
     this.handleView = this.handleView.bind(this)
@@ -91,10 +92,18 @@ class App extends Component {
      this.fetchLists()
   }
 
+  //search bar
+  onTitleName(title) {
+    // will be added by Kim
+  }
+
   render () {
     return (
       <div className="main-container">
-        <Header />
+        <Header
+          submit={this.onTitleName}
+          text={this.state.search}
+        />
 
         <Form
           handleCreateList={this.handleCreateList}
