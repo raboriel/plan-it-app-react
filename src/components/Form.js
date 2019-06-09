@@ -2,11 +2,66 @@ import React, { Component } from 'react'
 
 
 class Form extends Component {
+  constructor(props) {
+    super(props)
+    this.state = {
+      title: '',
+      imageURL: '',
+      description: ''
+    }
+  }
+  // submit form
+  handleSubmit = (event) => {
+    event.preventDefault()
+    this.props.handleCreateList(this.state)
+    this.clearForm()
+  }
+
+  // store input title value to state
+  handleChange = (event) => {
+    this.setState({
+      // [event.target.id] Identifier which placeholder should be used
+      [event.target.id]: event.target.value
+    })
+    // console.log(event.target.id);
+  }
+
+  // clear the placeholder after submit
+  clearForm = () => {
+    this.setState({
+       title: '',
+       imageURL: '',
+       description: ''
+     })
+  }
 
   render () {
     return (
-      <div className="form">
-       this is the form component
+      <div className="form" onSubmit={this.handleSubmit}>
+        <form>
+         <input type='text'
+         className="add_form"
+         placeholder="Title"
+         id='title'
+         onChange={this.handleChange}
+         value={this.state.title}
+         />
+         <input type='text'
+         className="add_form"
+         placeholder="Image URL"
+         id='imageURL'
+         onChange={this.handleChange}
+         value={this.state.imageURL}
+         />
+         <input type='text'
+         className="add_form"
+         placeholder="Description"
+         id='description'
+         onChange={this.handleChange}
+         value={this.state.description}
+         />
+         <button type="submit" className="submit-button">Add List</button>
+        </form>
       </div>
 
     )
