@@ -25,7 +25,7 @@ class App extends Component {
   // create a list from server
   handleCreateList(task) {
     // add server address later
-    fetch('heroku server address here', {
+    fetch('https://buckidea-api.herokuapp.com/', {
       body: JSON.stringify(task),
       method: 'POST',
       headers: {
@@ -70,7 +70,7 @@ class App extends Component {
   }
 
   fetchLists() {
-    fetch('heroku server address here')
+    fetch('https://buckidea-api.herokuapp.com/')
     // http://herokuaddress/bucketlists
      .then( data => data.json())
      .then( jData => {
