@@ -8,7 +8,7 @@ class App extends Component {
   constructor(props) {
     super(props)
     this.state = {
-<<<<<<< HEAD
+
       currentView:'list',
       bucketLists: []
     }
@@ -20,7 +20,7 @@ class App extends Component {
     this.handleCreateList = this.handleCreateList.bind(this)
     // this.handleCheck = this.handleCheck.bind(this)
     this.removeFromArray = this.removeFromArray.bind(this)
-=======
+
       listTasks: [],
       filtered: [],
       toggle: false,
@@ -138,7 +138,7 @@ class App extends Component {
     this.setState({
       filtered: newList
     });
->>>>>>> adc333ed5cdcd57f4651f6aa181574ad13cf82ed
+
   }
 
   handleCreateList(List) {
@@ -184,9 +184,9 @@ handleView(view) {
     currentView: view
   })
 }
-
+//line 189 had tasks instead of lists
 fetchLists() {
-  fetch('http://localhost:3000/tasks')
+  fetch('http://localhost:3000/lists')
    .then( data => data.json())
    .then( jData => {
      console.log('this is jData', jData)
@@ -203,16 +203,16 @@ grabLists(lists){
 }
 
 
-// run one time only lifecycle method...
+// line 208 was Tasks not Lists
 componentDidMount() {
-   this.fetchTasks()
+   this.fetchLists()
 }
 
 
   render () {
     return (
       <div className="main-container">
-<<<<<<< HEAD
+
         <Header />
         <Form />
         <BucketList
@@ -221,7 +221,7 @@ componentDidMount() {
           BucketLists={this.state.bucketLists}
           // completedLists={this.state.completedLists}
           // handleCheck={this.handleCheck}/>
-=======
+
         <Header
           submit={this.handleSearch}
           title={this.state.title}
@@ -237,7 +237,6 @@ componentDidMount() {
           handleView={this.handleView}
           BucketLists={this.state.bucketLists}
         />
->>>>>>> adc333ed5cdcd57f4651f6aa181574ad13cf82ed
       </div>
     );
   }
