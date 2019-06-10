@@ -10,6 +10,7 @@ class App extends Component {
     this.state = {
       listTasks: [],
       filtered: [],
+      toggle: false,
       likeCount: 0,
       doneCount: 0
     }
@@ -20,12 +21,13 @@ class App extends Component {
     this.handleCreateList = this.handleCreateList.bind(this)
     this.removeFromArray = this.removeFromArray.bind(this)
     this.handleSearch = this.handleSearch.bind(this)
+    this.handleAnswer = this.handleAnswer.bind(this)
     }
 
   // create a list from server
   handleCreateList(task) {
     // add server address later
-    fetch('heroku server address here', {
+    fetch('https://buckidea-api.herokuapp.com/', {
       body: JSON.stringify(task),
       method: 'POST',
       headers: {
@@ -69,8 +71,15 @@ class App extends Component {
     })
   }
 
+  // show and hide create form
+  handleAnswer() {
+    this.setState({
+      toggle: !this.state.toggle
+    })
+  }
+
   fetchLists() {
-    fetch('heroku server address here')
+    fetch('https://buckidea-api.herokuapp.com/')
     // http://herokuaddress/bucketlists
      .then( data => data.json())
      .then( jData => {
@@ -128,6 +137,8 @@ class App extends Component {
 
         <Form
           handleCreateList={this.handleCreateList}
+          show={this.state.toggle}
+          toggle={this.handleAnswer}
         />
         <Lists
           currentView={this.state.currentView}
