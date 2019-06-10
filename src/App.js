@@ -10,6 +10,7 @@ class App extends Component {
     this.state = {
       listTasks: [],
       filtered: [],
+      toggle: false,
       likeCount: 0,
       doneCount: 0
     }
@@ -20,6 +21,7 @@ class App extends Component {
     this.handleCreateList = this.handleCreateList.bind(this)
     this.removeFromArray = this.removeFromArray.bind(this)
     this.handleSearch = this.handleSearch.bind(this)
+    this.handleAnswer = this.handleAnswer.bind(this)
     }
 
   // create a list from server
@@ -66,6 +68,13 @@ class App extends Component {
     // updating state causes a render
     this.setState({
       currentView: view
+    })
+  }
+
+  // show and hide create form
+  handleAnswer() {
+    this.setState({
+      toggle: !this.state.toggle
     })
   }
 
@@ -128,6 +137,8 @@ class App extends Component {
 
         <Form
           handleCreateList={this.handleCreateList}
+          show={this.state.toggle}
+          toggle={this.handleAnswer}
         />
         <Lists
           currentView={this.state.currentView}
