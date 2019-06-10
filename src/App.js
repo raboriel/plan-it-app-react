@@ -8,6 +8,7 @@ class App extends Component {
   constructor(props) {
     super(props)
     this.state = {
+      currentView: 'list',
       listTasks: [],
       filtered: [],
       toggle: false,
@@ -25,26 +26,28 @@ class App extends Component {
     }
 
   // create a list from server
-  handleCreateList(task) {
+  handleCreateList(list) {
     // add server address later
+    // should this be 'http://localhost:3000/lists',
+//https://buckidea-api.herokuapp.com/
     fetch('https://buckidea-api.herokuapp.com/', {
-      body: JSON.stringify(task),
+      body: JSON.stringify(list),
       method: 'POST',
       headers: {
         'Accept': 'application/json, text/plain, */*',
         'Content-Type': 'application/json'
       }
     })
-    .then(createdTask => {
-      return createdTask.json()
-    })
+    .then( createdList => createdList.json())
     .then(jData => {
-      this.fetchTasks()
+      this.updateArray(jData, 'listTasks')
+      this.handleView('list')
+
     })
     .catch(err => console.log(err))
   }
 
-    // updateArray( {list_item: 'newsomething'}, 'bucketLists')
+
   updateArray(list,array){
     this.setState( prevState => ({
       [array]:[...prevState[array],list]
@@ -81,17 +84,15 @@ class App extends Component {
   fetchLists() {
     fetch('https://buckidea-api.herokuapp.com/')
     // http://herokuaddress/bucketlists
+    // should this be 'http://localhost:3000/lists'
+    //https://buckidea-api.herokuapp.com/
      .then( data => data.json())
      .then( jData => {
        console.log('this is jData', jData)
-       this.grabLists(jData)
      })
   }
 
-  grabLists(lists){
-    let bucketLists = []
-    bucketLists.push(lists)
-  }
+
 
 
   // run one time only lifecycle method...
@@ -143,7 +144,7 @@ class App extends Component {
         <Lists
           currentView={this.state.currentView}
           handleView={this.handleView}
-          BucketLists={this.state.bucketLists}
+          listTasks={this.state.listTasks}
         />
       </div>
     );
