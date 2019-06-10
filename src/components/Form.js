@@ -38,30 +38,34 @@ class Form extends Component {
   render () {
     return (
       <div className="form" onSubmit={this.handleSubmit}>
-        <form>
-         <input type='text'
-         className="add_form"
-         placeholder="Title"
-         id='title'
-         onChange={this.handleChange}
-         value={this.state.title}
-         />
-         <input type='text'
-         className="add_form"
-         placeholder="Image URL"
-         id='imageURL'
-         onChange={this.handleChange}
-         value={this.state.imageURL}
-         />
-         <input type='text'
-         className="add_form"
-         placeholder="Description"
-         id='description'
-         onChange={this.handleChange}
-         value={this.state.description}
-         />
-         <button type="submit" className="submit-button">Add List</button>
-        </form>
+        <h2 onClick={this.props.toggle} >Click to Add Your Bucket List</h2>
+        {this.props.show ?
+          <form>
+           <input type='text'
+           className="add_form"
+           placeholder="Title"
+           id='title'
+           onChange={this.handleChange}
+           value={this.state.title}
+           />
+           <input type='text'
+           className="add_form"
+           placeholder="Image URL"
+           id='imageURL'
+           onChange={this.handleChange}
+           value={this.state.imageURL}
+           />
+           <input type='text'
+           className="add_form"
+           placeholder="Description"
+           id='description'
+           onChange={this.handleChange}
+           value={this.state.description}
+           />
+           <button type="submit" className="submit-button">Add List</button>
+          </form>
+          : ''}
+
       </div>
 
     )
