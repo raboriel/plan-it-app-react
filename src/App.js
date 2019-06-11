@@ -112,9 +112,7 @@ class App extends Component {
 
   fetchLists() {
     fetch('http://localhost:3000/lists')
-    // http://herokuaddress/bucketlists
-    // should this be 'http://localhost:3000/lists'
-    //https://buckidea-api.herokuapp.com/
+
      .then( data => data.json())
      .then( jData => {
        console.log('this is jData', jData)
@@ -124,23 +122,23 @@ class App extends Component {
 
   sortLists(lists){
    let completedLists = []
-   let todoLists = []
+   let listTasks = []
    // if it's a single param then you don't need the parens - task
    // it there are 2 params then yes...( task, index )
    lists.forEach( list => {
-     if(list.completed) {
+     if(list.isComplete) {
        completedLists.push(list)
      } else {
-       todoLists.push(list)
+       listTasks.push(list)
      }
    })
-   this.setLists(completedLists, todoLists)
+   this.setLists(completedLists, listTasks)
  }
 
- setLists(completed,list){
+ setLists(isComplete,list){
    this.setState({
-     completedLists: completed,
-     todoList: list
+     completedLists: isComplete,
+     listTasks: list
    })
  }
 
@@ -193,10 +191,13 @@ class App extends Component {
           show={this.state.toggle}
           toggle={this.handleAnswer}
         />
-        <Lists
+        //corrected to match 
+        <TheList
           currentView={this.state.currentView}
           handleView={this.handleView}
           listTasks={this.state.listTasks}
+          completedLists={this.state.completedLists}
+          handleCheck={this.handleCheck}
         />
       </div>
     );
