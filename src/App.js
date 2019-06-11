@@ -19,7 +19,6 @@ class App extends Component {
     this.handleView = this.handleView.bind(this)
     this.fetchLists = this.fetchLists.bind(this)
     this.updateArray = this.updateArray.bind(this)
-    this.sortLists = this.sortLists.bind(this)
     this.setLists = this.setLists.bind(this)
     this.handleCreateList = this.handleCreateList.bind(this)
     this.removeFromArray = this.removeFromArray.bind(this)
@@ -107,23 +106,16 @@ class App extends Component {
   }
 
   fetchLists() {
+    let listTasks = []
     fetch('https://bucket-lister-api.herokuapp.com/lists')
-
      .then( data => data.json())
      .then( jData => {
+       listTasks.push(jData)
+       this.setLists(listTasks)
        console.log('this is jData', jData)
      })
   }
 
-  sortLists(lists){
-   let listTasks = []
-   // if it's a single param then you don't need the parens - task
-   // it there are 2 params then yes...( task, index )
-   lists.forEach( list => {
-       listTasks.push(list)
-     })
-   this.setLists(listTasks)
- }
 
  setLists(list){
    this.setState({
@@ -168,6 +160,7 @@ class App extends Component {
   }
 
   render () {
+    console.log(this.state.listTasks);
     return (
       <div className="main-container">
         <Header
