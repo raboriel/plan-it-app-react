@@ -13,10 +13,7 @@ class App extends Component {
       filtered: [],
       toggle: false,
       likeCount: 0,
-      doneCount: 0,
-      completedLists: []
-
-
+      doneCount: 0
     }
     // Add binds below
     this.handleView = this.handleView.bind(this)
@@ -59,29 +56,29 @@ class App extends Component {
   // handle checking of item
 
   // added check for isComplete
-  handleCheck(list, arrayIndex, currentArray){
-    // this toggles the completed value
-    list.isComplete = !list.isComplete
-    // now we make our fetch call to PUT (update)
-    fetch('https://bucket-lister-api.herokuapp.com/lists/' + list.id, {
-      body:JSON.stringify(list),
-      method:'PUT',
-      headers: {
-        'Accept': 'application/json, text/plain, */*',
-        'Content-Type': 'application/json'
-      }
-    })
-    .then( updatedList => updatedList.json())
-    .then(jData => {
-      this.removeFromArray(currentArray, arrayIndex)
-      if(currentArray === 'listTasks') {
-        this.updateArray(jData, 'completedLists')
-      } else {
-        this.updateArray(jData, 'listTasks')
-      }
-    })
-    .catch(err => console.log('this is error from handleCheck', err))
-  }
+  // handleCheck(list, arrayIndex, currentArray){
+  //   // this toggles the completed value
+  //   list.isComplete = !list.isComplete
+  //   // now we make our fetch call to PUT (update)
+  //   fetch('https://bucket-lister-api.herokuapp.com/lists/' + list.id, {
+  //     body:JSON.stringify(list),
+  //     method:'PUT',
+  //     headers: {
+  //       'Accept': 'application/json, text/plain, */*',
+  //       'Content-Type': 'application/json'
+  //     }
+  //   })
+  //   .then( updatedList => updatedList.json())
+  //   .then(jData => {
+  //     this.removeFromArray(currentArray, arrayIndex)
+  //     if(currentArray === 'listTasks') {
+  //       this.updateArray(jData, 'completedLists')
+  //     } else {
+  //       this.updateArray(jData, 'listTasks')
+  //     }
+  //   })
+  //   .catch(err => console.log('this is error from handleCheck', err))
+  // }
 
   removeFromArray(array, arrayIndex){
     this.setState(prevState => {
@@ -115,28 +112,21 @@ class App extends Component {
      .then( data => data.json())
      .then( jData => {
        console.log('this is jData', jData)
-       this.sortLists(jData)
      })
   }
 
   sortLists(lists){
-   let completedLists = []
    let listTasks = []
    // if it's a single param then you don't need the parens - task
    // it there are 2 params then yes...( task, index )
    lists.forEach( list => {
-     if(list.isComplete) {
-       completedLists.push(list)
-     } else {
        listTasks.push(list)
-     }
-   })
-   this.setLists(completedLists, listTasks)
+     })
+   this.setLists(listTasks)
  }
 
- setLists(isComplete,list){
+ setLists(list){
    this.setState({
-     completedLists: isComplete,
      listTasks: list
    })
  }
@@ -190,13 +180,10 @@ class App extends Component {
           show={this.state.toggle}
           toggle={this.handleAnswer}
         />
-        //corr
-        <TheList
+        <Lists
           currentView={this.state.currentView}
           handleView={this.handleView}
           listTasks={this.state.listTasks}
-          completedLists={this.state.completedLists}
-          handleCheck={this.handleCheck}
         />
       </div>
     );
