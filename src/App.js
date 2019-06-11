@@ -33,7 +33,7 @@ class App extends Component {
     // add server address later
     // should this be 'http://localhost:3000/lists',
 //https://buckidea-api.herokuapp.com/
-    fetch('https://buckidea-api.herokuapp.com/', {
+    fetch('https://bucket-lister-api.herokuapp.com/lists', {
       body: JSON.stringify(list),
       method: 'POST',
       headers: {
@@ -85,7 +85,7 @@ class App extends Component {
   }
 
   fetchLists() {
-    fetch('http://localhost:3000/lists')
+    fetch('https://bucket-lister-api.herokuapp.com/lists')
     // http://herokuaddress/bucketlists
     // should this be 'http://localhost:3000/lists'
     //https://buckidea-api.herokuapp.com/
