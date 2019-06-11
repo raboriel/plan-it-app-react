@@ -30,9 +30,7 @@ class App extends Component {
 
   // create a list from server
   handleCreateList(list) {
-    // add server address later
-    // should this be 'http://localhost:3000/lists',
-//https://buckidea-api.herokuapp.com/
+
     fetch('https://bucket-lister-api.herokuapp.com/lists', {
       body: JSON.stringify(list),
       method: 'POST',
