@@ -13,7 +13,9 @@ class App extends Component {
       filtered: [],
       toggle: false,
       likeCount: 0,
-      doneCount: 0
+      doneCount: 0,
+      completedLists: []
+
 
     }
     // Add binds below
@@ -30,10 +32,8 @@ class App extends Component {
 
   // create a list from server
   handleCreateList(list) {
-    // add server address later
-    // should this be 'http://localhost:3000/lists',
-//https://buckidea-api.herokuapp.com/
-    fetch('https://buckidea-api.herokuapp.com/', {
+  //updated url to current heroku build
+    fetch('https://bucket-lister-api.herokuapp.com/', {
       body: JSON.stringify(list),
       method: 'POST',
       headers: {
@@ -57,6 +57,32 @@ class App extends Component {
     }))
   }
 
+  // handle checking of item
+
+  // added check for isComplete
+  handleCheck(list, arrayIndex, currentArray){
+    // this toggles the completed value
+    list.isComplete = !list.isComplete
+    // now we make our fetch call to PUT (update)
+    fetch('http://localhost:3000/lists/' + list.id, {
+      body:JSON.stringify(list),
+      method:'PUT',
+      headers: {
+        'Accept': 'application/json, text/plain, */*',
+        'Content-Type': 'application/json'
+      }
+    })
+    .then( updatedList => updatedList.json())
+    .then(jData => {
+      this.removeFromArray(currentArray, arrayIndex)
+      if(currentArray === 'listTasks') {
+        this.updateArray(jData, 'completedLists')
+      } else {
+        this.updateArray(jData, 'listTasks')
+      }
+    })
+    .catch(err => console.log('this is error from handleCheck', err))
+  }
 
   removeFromArray(array, arrayIndex){
     this.setState(prevState => {
