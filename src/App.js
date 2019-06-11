@@ -64,7 +64,7 @@ class App extends Component {
     // this toggles the completed value
     list.isComplete = !list.isComplete
     // now we make our fetch call to PUT (update)
-    fetch('http://localhost:3000/lists/' + list.id, {
+    fetch('https://bucket-lister-api.herokuapp.com/lists/' + list.id, {
       body:JSON.stringify(list),
       method:'PUT',
       headers: {
@@ -111,7 +111,7 @@ class App extends Component {
   }
 
   fetchLists() {
-    fetch('http://localhost:3000/lists')
+    fetch('https://bucket-lister-api.herokuapp.com/lists')
 
      .then( data => data.json())
      .then( jData => {
@@ -191,7 +191,7 @@ class App extends Component {
           show={this.state.toggle}
           toggle={this.handleAnswer}
         />
-        //corrected to match 
+        //corr
         <TheList
           currentView={this.state.currentView}
           handleView={this.handleView}
