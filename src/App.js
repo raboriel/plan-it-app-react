@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import './App.css';
 import Header from './components/Header';
-import Lists from './components/Lists'
-import Form from './components/Form'
+import TheList from './components/TheList';
+import Form from './components/Form';
 
 class App extends Component {
   constructor(props) {
@@ -191,7 +191,7 @@ class App extends Component {
           show={this.state.toggle}
           toggle={this.handleAnswer}
         />
-        //corr
+      
         <TheList
           currentView={this.state.currentView}
           handleView={this.handleView}
