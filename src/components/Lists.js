@@ -5,12 +5,15 @@ class Lists extends Component {
   render () {
     return (
 <<<<<<< HEAD
+<<<<<<< HEAD
 
       <div className="list">
         < TheList
         listTasks={this.props.listTasks}
         />
 =======
+=======
+>>>>>>> 2f429b239e5fdb36bf59759339a15c9cd119fd72
       <div>
       {this.props.listTasks.map( (list, index) => {
         console.log('in lists',list);
@@ -22,7 +25,10 @@ class Lists extends Component {
           />
         )
       })}
+<<<<<<< HEAD
 >>>>>>> e003c6f0a5c48760cd72a8016957706f518c888c
+=======
+>>>>>>> 2f429b239e5fdb36bf59759339a15c9cd119fd72
       </div>
       )
     }
