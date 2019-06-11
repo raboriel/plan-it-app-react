@@ -12,13 +12,12 @@ class App extends Component {
       listTasks: [],
       filtered: [],
       toggle: false,
-      likeCount: 0,
-      doneCount: 0
     }
     // Add binds below
     this.handleView = this.handleView.bind(this)
     this.fetchLists = this.fetchLists.bind(this)
-    this.updateArray = this.updateArray.bind(this)
+    // this.sortTasks = this.sortTasks.bind(this)
+    // this.updateArray = this.updateArray.bind(this)
     this.setLists = this.setLists.bind(this)
     this.handleCreateList = this.handleCreateList.bind(this)
     this.removeFromArray = this.removeFromArray.bind(this)
@@ -36,25 +35,40 @@ class App extends Component {
         'Content-Type': 'application/json'
       }
     })
-    .then( createdList => createdList.json())
+    .then(createdLists => {
+      return createdLists.json()
+    })
     .then(jData => {
-      this.updateArray(jData, 'listTasks')
-      this.handleView('list')
-
+      this.fetchLists()
     })
     .catch(err => console.log(err))
   }
 
-
-  updateArray(list,array){
-    this.setState( prevState => ({
-      [array]:[...prevState[array],list]
-    }))
+  fetchLists() {
+    let listArr = []
+    fetch('https://bucket-lister-api.herokuapp.com/lists')
+    .then(data => data.json())
+    .then(jData => {
+      console.log('this is jData', jData);
+      listArr.push(jData)
+      this.setLists(listArr)
+    })
   }
 
-  // handle checking of item
+  // sortTasks(tasks){
+  //   let listTasks = []
+  //   listTasks.push(tasks)
+  //   this.setLists(listTasks)
+  //   console.log('in sortTasks', listTasks);
+  // }
 
-  // added check for isComplete
+  // updateArray(array){
+  //   this.setState( prevState => ({
+  //     [array]:[...prevState[array]]
+  //   }))
+  // }
+
+
   // handleCheck(list, arrayIndex, currentArray){
   //   // this toggles the completed value
   //   list.isComplete = !list.isComplete
@@ -105,19 +119,9 @@ class App extends Component {
     })
   }
 
-  fetchLists() {
-    let listTasks = []
-    fetch('https://bucket-lister-api.herokuapp.com/lists')
-     .then( data => data.json())
-     .then( jData => {
-       listTasks.push(jData)
-       this.setLists(listTasks)
-       console.log('this is jData', jData)
-     })
-  }
-
 
  setLists(list){
+   console.log('this is setlists', list);
    this.setState({
      listTasks: list
    })
