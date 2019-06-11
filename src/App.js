@@ -1,13 +1,14 @@
 import React, { Component } from 'react';
 import './App.css';
 import Header from './components/Header';
-import Lists from './components/Lists'
-import Form from './components/Form'
+import TheList from './components/TheList';
+import Form from './components/Form';
 
 class App extends Component {
   constructor(props) {
     super(props)
     this.state = {
+      currentView: 'list',
       listTasks: [],
       filtered: [],
       toggle: false,
@@ -18,6 +19,8 @@ class App extends Component {
     this.handleView = this.handleView.bind(this)
     this.fetchLists = this.fetchLists.bind(this)
     this.updateArray = this.updateArray.bind(this)
+    this.sortLists = this.sortLists.bind(this)
+    this.setLists = this.setLists.bind(this)
     this.handleCreateList = this.handleCreateList.bind(this)
     this.removeFromArray = this.removeFromArray.bind(this)
     this.handleSearch = this.handleSearch.bind(this)
@@ -25,32 +28,57 @@ class App extends Component {
     }
 
   // create a list from server
-  handleCreateList(task) {
-    // add server address later
-    fetch('https://buckidea-api.herokuapp.com/', {
-      body: JSON.stringify(task),
+  handleCreateList(list) {
+    fetch('https://bucket-lister-api.herokuapp.com/lists', {
+      body: JSON.stringify(list),
       method: 'POST',
       headers: {
         'Accept': 'application/json, text/plain, */*',
         'Content-Type': 'application/json'
       }
     })
-    .then(createdTask => {
-      return createdTask.json()
-    })
+    .then( createdList => createdList.json())
     .then(jData => {
-      this.fetchTasks()
+      this.updateArray(jData, 'listTasks')
+      this.handleView('list')
+
     })
     .catch(err => console.log(err))
   }
 
-    // updateArray( {list_item: 'newsomething'}, 'bucketLists')
+
   updateArray(list,array){
     this.setState( prevState => ({
       [array]:[...prevState[array],list]
     }))
   }
 
+  // handle checking of item
+
+  // added check for isComplete
+  // handleCheck(list, arrayIndex, currentArray){
+  //   // this toggles the completed value
+  //   list.isComplete = !list.isComplete
+  //   // now we make our fetch call to PUT (update)
+  //   fetch('https://bucket-lister-api.herokuapp.com/lists/' + list.id, {
+  //     body:JSON.stringify(list),
+  //     method:'PUT',
+  //     headers: {
+  //       'Accept': 'application/json, text/plain, */*',
+  //       'Content-Type': 'application/json'
+  //     }
+  //   })
+  //   .then( updatedList => updatedList.json())
+  //   .then(jData => {
+  //     this.removeFromArray(currentArray, arrayIndex)
+  //     if(currentArray === 'listTasks') {
+  //       this.updateArray(jData, 'completedLists')
+  //     } else {
+  //       this.updateArray(jData, 'listTasks')
+  //     }
+  //   })
+  //   .catch(err => console.log('this is error from handleCheck', err))
+  // }
 
   removeFromArray(array, arrayIndex){
     this.setState(prevState => {
@@ -79,19 +107,31 @@ class App extends Component {
   }
 
   fetchLists() {
-    fetch('https://buckidea-api.herokuapp.com/')
-    // http://herokuaddress/bucketlists
+    fetch('https://bucket-lister-api.herokuapp.com/lists')
+
      .then( data => data.json())
      .then( jData => {
        console.log('this is jData', jData)
-       this.grabLists(jData)
      })
   }
 
-  grabLists(lists){
-    let bucketLists = []
-    bucketLists.push(lists)
-  }
+  sortLists(lists){
+   let listTasks = []
+   // if it's a single param then you don't need the parens - task
+   // it there are 2 params then yes...( task, index )
+   lists.forEach( list => {
+       listTasks.push(list)
+     })
+   this.setLists(listTasks)
+ }
+
+ setLists(list){
+   this.setState({
+     listTasks: list
+   })
+ }
+
+
 
 
   // run one time only lifecycle method...
@@ -140,10 +180,15 @@ class App extends Component {
           show={this.state.toggle}
           toggle={this.handleAnswer}
         />
+<<<<<<< HEAD
+      
+        <TheList
+=======
         <Lists
+>>>>>>> 8ca4afe6387a321cbc497ceaadb9a7389302291c
           currentView={this.state.currentView}
           handleView={this.handleView}
-          BucketLists={this.state.bucketLists}
+          listTasks={this.state.listTasks}
         />
       </div>
     );
