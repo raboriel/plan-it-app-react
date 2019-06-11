@@ -1,10 +1,11 @@
 import React, { Component } from 'react'
-import Lists from './Lists'
 
 class TheList extends Component {
   render () {
+    console.log(this.props.listTasks);
     return (
       <div className="the-list">
+<<<<<<< HEAD
         { this.props.currentView === 'list'
            ? <div>
              {this.props.listTasks.map( (list, index) => {
@@ -33,6 +34,9 @@ class TheList extends Component {
               })}
              </div>
          }
+=======
+        <h4>{this.props.list}</h4>
+>>>>>>> 8ca4afe6387a321cbc497ceaadb9a7389302291c
       </div>
    )
   }
