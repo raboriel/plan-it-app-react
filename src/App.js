@@ -180,12 +180,9 @@ class App extends Component {
           show={this.state.toggle}
           toggle={this.handleAnswer}
         />
-<<<<<<< HEAD
-      
-        <TheList
-=======
+
         <Lists
->>>>>>> 8ca4afe6387a321cbc497ceaadb9a7389302291c
+
           currentView={this.state.currentView}
           handleView={this.handleView}
           listTasks={this.state.listTasks}
