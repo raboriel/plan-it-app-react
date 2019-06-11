@@ -32,8 +32,7 @@ class App extends Component {
 
   // create a list from server
   handleCreateList(list) {
-  //updated url to current heroku build
-    fetch('https://bucket-lister-api.herokuapp.com/', {
+    fetch('https://bucket-lister-api.herokuapp.com/lists', {
       body: JSON.stringify(list),
       method: 'POST',
       headers: {
