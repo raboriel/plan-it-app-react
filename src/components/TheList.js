@@ -9,7 +9,7 @@ class TheList extends Component {
            ? <div>
              {this.props.listTasks.map( (list, index) => {
                return (
-                 <List
+                 <Lists
                    key={index}
                    list={list}
                    handleCheck={this.props.handleCheck}
@@ -22,7 +22,7 @@ class TheList extends Component {
            : <div>
               {this.props.completedLists.map( (list, index) => {
                 return (
-                   <Task
+                   <Lists
                      key={index}
                      list={list}
                      handleCheck={this.props.handleCheck}
