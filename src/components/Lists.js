@@ -4,10 +4,17 @@ import TheList from './TheList'
 class Lists extends Component {
   render () {
     return (
-      <div className="list">
-        < TheList
-        listTasks={this.props.listTasks}
-        />
+      <div>
+      {this.props.listTasks.map( (list, index) => {
+        console.log('in lists',list);
+        return (
+          <TheList
+            key={index}
+            list={list}
+            arrayIndex={index}
+          />
+        )
+      })}
       </div>
         )
       }
