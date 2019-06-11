@@ -13,7 +13,9 @@ class App extends Component {
       filtered: [],
       toggle: false,
       likeCount: 0,
-      doneCount: 0
+      doneCount: 0,
+      completedLists: []
+
 
     }
     // Add binds below
@@ -30,7 +32,6 @@ class App extends Component {
 
   // create a list from server
   handleCreateList(list) {
-
     fetch('https://bucket-lister-api.herokuapp.com/lists', {
       body: JSON.stringify(list),
       method: 'POST',
@@ -55,6 +56,32 @@ class App extends Component {
     }))
   }
 
+  // handle checking of item
+
+  // added check for isComplete
+  handleCheck(list, arrayIndex, currentArray){
+    // this toggles the completed value
+    list.isComplete = !list.isComplete
+    // now we make our fetch call to PUT (update)
+    fetch('https://bucket-lister-api.herokuapp.com/lists/' + list.id, {
+      body:JSON.stringify(list),
+      method:'PUT',
+      headers: {
+        'Accept': 'application/json, text/plain, */*',
+        'Content-Type': 'application/json'
+      }
+    })
+    .then( updatedList => updatedList.json())
+    .then(jData => {
+      this.removeFromArray(currentArray, arrayIndex)
+      if(currentArray === 'listTasks') {
+        this.updateArray(jData, 'completedLists')
+      } else {
+        this.updateArray(jData, 'listTasks')
+      }
+    })
+    .catch(err => console.log('this is error from handleCheck', err))
+  }
 
   removeFromArray(array, arrayIndex){
     this.setState(prevState => {
@@ -84,9 +111,7 @@ class App extends Component {
 
   fetchLists() {
     fetch('https://bucket-lister-api.herokuapp.com/lists')
-    // http://herokuaddress/bucketlists
-    // should this be 'http://localhost:3000/lists'
-    //https://buckidea-api.herokuapp.com/
+
      .then( data => data.json())
      .then( jData => {
        console.log('this is jData', jData)
@@ -96,23 +121,23 @@ class App extends Component {
 
   sortLists(lists){
    let completedLists = []
-   let todoLists = []
+   let listTasks = []
    // if it's a single param then you don't need the parens - task
    // it there are 2 params then yes...( task, index )
    lists.forEach( list => {
-     if(list.completed) {
+     if(list.isComplete) {
        completedLists.push(list)
      } else {
-       todoLists.push(list)
+       listTasks.push(list)
      }
    })
-   this.setLists(completedLists, todoLists)
+   this.setLists(completedLists, listTasks)
  }
 
- setLists(completed,list){
+ setLists(isComplete,list){
    this.setState({
-     completedLists: completed,
-     todoList: list
+     completedLists: isComplete,
+     listTasks: list
    })
  }
 
@@ -165,10 +190,13 @@ class App extends Component {
           show={this.state.toggle}
           toggle={this.handleAnswer}
         />
-        <Lists
+        //corr
+        <TheList
           currentView={this.state.currentView}
           handleView={this.handleView}
           listTasks={this.state.listTasks}
+          completedLists={this.state.completedLists}
+          handleCheck={this.handleCheck}
         />
       </div>
     );
