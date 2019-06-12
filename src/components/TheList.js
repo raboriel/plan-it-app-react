@@ -26,13 +26,14 @@ class TheList extends Component {
 
   render () {
     return (
-      <div>
+      <div className="listContainer">
         {this.props.list.map( (list, index) => {
           return (
             <div className="thelist" key={index}>
-              <h4>{list.title}</h4>
-              <h4>like: {list.likes}<button onClick={()=> this.props.handleCheck(list)}>&hearts;</button></h4>
-              <h4>done: {list.done}<button onClick={this.donePlus}>done+</button></h4>
+              <h3>{list.title}</h3>
+              <img src={list.image} alt=""/>
+              <p>{list.description}</p>
+              <h4><button onClick={()=> this.props.handleCheck(list)}><span>&hearts;</span></button>{list.likes}</h4>
             </div>
         )
       })}

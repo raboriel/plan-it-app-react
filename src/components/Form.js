@@ -6,7 +6,7 @@ class Form extends Component {
     super(props)
     this.state = {
       title: '',
-      imageURL: '',
+      image: '',
       description: ''
     }
   }
@@ -30,7 +30,7 @@ class Form extends Component {
   clearForm = () => {
     this.setState({
        title: '',
-       imageURL: '',
+       image: '',
        description: ''
      })
   }
@@ -51,9 +51,9 @@ class Form extends Component {
            <input type='text'
            className="add_form"
            placeholder="Image URL"
-           id='imageURL'
+           id='image'
            onChange={this.handleChange}
-           value={this.state.imageURL}
+           value={this.state.image}
            />
            <input type='text'
            className="add_form"
