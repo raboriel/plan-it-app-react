@@ -18,9 +18,14 @@ class App extends Component {
     this.removeFromArray = this.removeFromArray.bind(this)
     this.handleAnswer = this.handleAnswer.bind(this)
     this.handleCheck = this.handleCheck.bind(this)
+    this.handleDelete = this.handleDelete.bind(this)
+    // this.handleEdit = this.handleEdit.bind(this)
     }
 
   // create a list from server
+
+
+  // edit
   handleCreateList(list) {
     fetch('https://bucket-lister-api.herokuapp.com/lists', {
       body: JSON.stringify(list),
@@ -50,6 +55,21 @@ class App extends Component {
       this.setLists(listArr)
     })
   }
+  handleDelete(list, arrayIndex, currentArray){
+    fetch('https://bucket-lister-api.herokuapp.com/lists/' + list.id, {
+      body:JSON.stringify(list),
+      method:'DELETE',
+      headers: {
+        'Accept': 'application/json, text/plain, */*',
+        'Content-Type': 'application/json'
+      }
+    })
+    .then( updatedList => updatedList.json())
+    .then(jData => {
+      this.fetchLists()
+    })
+    .catch(err => console.log('this is error from handleDelete', err))
+  }
 
 
   //update database
@@ -69,6 +89,7 @@ class App extends Component {
     })
     .catch(err => console.log('this is error from handleCheck', err))
   }
+
 
   removeFromArray(array, arrayIndex){
     this.setState(prevState => {
@@ -134,7 +155,7 @@ class App extends Component {
           handleView={this.handleView}
           listTasks={this.state.listTasks}
           handleCheck={this.handleCheck}
-          handleFilterChange={this.handleFilterChange}
+          handleDelete={this.handleDelete}
         />
       </div>
     );
