@@ -9,7 +9,6 @@ class App extends Component {
     super(props)
     this.state = {
       listTasks: [],
-      filtered: [],
       toggle: false,
     }
     // Add binds below
@@ -114,13 +113,14 @@ class App extends Component {
     })
   }
 
+
   render () {
     console.log(this.state.listTasks);
     return (
       <div className="main-container">
         <Header
-          submit={this.handleSearch}
           title={this.state.title}
+          listTasks={this.state.listTasks}
         />
 
         <Form
@@ -134,6 +134,7 @@ class App extends Component {
           handleView={this.handleView}
           listTasks={this.state.listTasks}
           handleCheck={this.handleCheck}
+          handleFilterChange={this.handleFilterChange}
         />
       </div>
     );

@@ -12,6 +12,7 @@ class Lists extends Component {
             list={list}
             arrayIndex={index}
             handleCheck={this.props.handleCheck}
+            handleFilterChange={this.props.handleFilterChange}
           />
         )
       })}
