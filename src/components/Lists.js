@@ -16,12 +16,12 @@ class Lists extends Component {
 >>>>>>> 2f429b239e5fdb36bf59759339a15c9cd119fd72
       <div>
       {this.props.listTasks.map( (list, index) => {
-        console.log('in lists',list);
         return (
           <TheList
             key={index}
             list={list}
             arrayIndex={index}
+            handleCheck={this.props.handleCheck}
           />
         )
       })}

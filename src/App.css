@@ -70,3 +70,31 @@ button:hover {
   color: black;
   font-size: 1.3em;
 }
+
+.listContainer {
+  width: 80%;
+  display: inline-flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.thelist {
+  display: inline-block;
+  /* background-color: WhiteSmoke; */
+  border: 2px solid whiteSmoke;
+  border-radius: 10px;
+  margin: 10px;
+  width: 350px;
+  padding: 10px;
+
+}
+
+img {
+  max-width: 100%;
+  border-radius: 10px;
+}
+
+span {
+  color: PaleVioletRed;
+}
