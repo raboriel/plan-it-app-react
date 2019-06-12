@@ -13,6 +13,7 @@ class Lists extends Component {
             arrayIndex={index}
             handleCheck={this.props.handleCheck}
             handleDelete={this.props.handleDelete}
+            // handleEdit={this.props.handleEdit}
           />
         )
       })}

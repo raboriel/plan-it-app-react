@@ -36,6 +36,7 @@ class TheList extends Component {
               <h4><button onClick={()=> this.props.handleCheck(list)}><span>&hearts;</span></button>{list.likes}</h4>
               <button onClick={()=>
               this.props.handleDelete(list)}>Delete</button>
+              <button>Edit</button>
             </div>
         )
       })}
@@ -43,6 +44,8 @@ class TheList extends Component {
    )
   }
 }
+// <button onClick={()=>
+              // this.props.handleEdit(list)}>Edit</button>
 //
 // // button attempt
 //   render () {

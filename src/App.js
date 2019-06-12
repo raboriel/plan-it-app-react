@@ -20,9 +20,13 @@ class App extends Component {
     this.handleAnswer = this.handleAnswer.bind(this)
     this.handleCheck = this.handleCheck.bind(this)
     this.handleDelete = this.handleDelete.bind(this)
+    // this.handleEdit = this.handleEdit.bind(this)
     }
 
   // create a list from server
+
+
+  // edit
   handleCreateList(list) {
     fetch('https://bucket-lister-api.herokuapp.com/lists', {
       body: JSON.stringify(list),
