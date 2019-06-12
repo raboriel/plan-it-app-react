@@ -1,7 +1,3 @@
-# plan-it-app-react
-
-
-# Unit 4 Project
 # Bucket List
 Bucket List is a full CRUD web application for General Assembly. In this unit we were assigned to work in pairs. Contributors for this project are Josh Ellison and Kyungsub Kim.
 link to heroku
