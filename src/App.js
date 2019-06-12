@@ -17,12 +17,13 @@ class App extends Component {
     this.handleView = this.handleView.bind(this)
     this.fetchLists = this.fetchLists.bind(this)
     // this.sortTasks = this.sortTasks.bind(this)
-    // this.updateArray = this.updateArray.bind(this)
+    this.updateArray = this.updateArray.bind(this)
     this.setLists = this.setLists.bind(this)
     this.handleCreateList = this.handleCreateList.bind(this)
     this.removeFromArray = this.removeFromArray.bind(this)
     this.handleSearch = this.handleSearch.bind(this)
     this.handleAnswer = this.handleAnswer.bind(this)
+    this.handleCheck = this.handleCheck.bind(this)
     }
 
   // create a list from server
@@ -55,43 +56,31 @@ class App extends Component {
     })
   }
 
-  // sortTasks(tasks){
-  //   let listTasks = []
-  //   listTasks.push(tasks)
-  //   this.setLists(listTasks)
-  //   console.log('in sortTasks', listTasks);
-  // }
-
-  // updateArray(array){
-  //   this.setState( prevState => ({
-  //     [array]:[...prevState[array]]
-  //   }))
-  // }
+  updateArray(array){
+    this.setState( prevState => ({
+      [array]:[...prevState[array]]
+    }))
+  }
 
 
-  // handleCheck(list, arrayIndex, currentArray){
-  //   // this toggles the completed value
-  //   list.isComplete = !list.isComplete
-  //   // now we make our fetch call to PUT (update)
-  //   fetch('https://bucket-lister-api.herokuapp.com/lists/' + list.id, {
-  //     body:JSON.stringify(list),
-  //     method:'PUT',
-  //     headers: {
-  //       'Accept': 'application/json, text/plain, */*',
-  //       'Content-Type': 'application/json'
-  //     }
-  //   })
-  //   .then( updatedList => updatedList.json())
-  //   .then(jData => {
-  //     this.removeFromArray(currentArray, arrayIndex)
-  //     if(currentArray === 'listTasks') {
-  //       this.updateArray(jData, 'completedLists')
-  //     } else {
-  //       this.updateArray(jData, 'listTasks')
-  //     }
-  //   })
-  //   .catch(err => console.log('this is error from handleCheck', err))
-  // }
+  handleCheck(list, index){
+    console.log('this is handlecheck',list);
+    list.likes = list.likes + 1
+    fetch('https://bucket-lister-api.herokuapp.com/lists/' + list.id, {
+      body:JSON.stringify(list),
+      method:'PUT',
+      headers: {
+        'Accept': 'application/json, text/plain, */*',
+        'Content-Type': 'application/json'
+      }
+    })
+    .then( updatedList => updatedList.json())
+    .then(jData => {
+      // console.log(this);
+      // this.updateArray(jData, 'listTasks')
+    })
+    .catch(err => console.log('this is error from handleCheck', err))
+  }
 
   removeFromArray(array, arrayIndex){
     this.setState(prevState => {
@@ -100,9 +89,6 @@ class App extends Component {
         [array]: prevState[array]
       }
     })
-    // this.setState( prevState => ({
-    //   [array]: [...prevState[array].splice(arrayIndex, 1)]
-    // }))
   }
 
   handleView(view) {
@@ -118,7 +104,6 @@ class App extends Component {
       toggle: !this.state.toggle
     })
   }
-
 
  setLists(list){
    console.log('this is setlists', list);
@@ -163,6 +148,19 @@ class App extends Component {
     });
   }
 
+  likePlus() {
+    this.setState({
+      likes: this.state.likes + 1
+    })
+  }
+
+  donePlus() {
+    this.setState({
+      done: this.state.done + 1
+    })
+  }
+
+
   render () {
     console.log(this.state.listTasks);
     return (
@@ -182,6 +180,7 @@ class App extends Component {
           currentView={this.state.currentView}
           handleView={this.handleView}
           listTasks={this.state.listTasks}
+          handleCheck={this.handleCheck}
         />
       </div>
     );

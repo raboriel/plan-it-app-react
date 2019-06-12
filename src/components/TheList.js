@@ -10,7 +10,6 @@ class TheList extends Component {
     this.likePlus = this.likePlus.bind(this)
     this.donePlus = this.donePlus.bind(this)
   }
-
   likePlus() {
     this.setState({
       likes: this.state.likes + 1
@@ -23,13 +22,21 @@ class TheList extends Component {
     })
   }
 
+
+
   render () {
     return (
-      <div className="thelist">
-        <h4>{this.props.list[0].title}</h4>
-        <h4>like: {this.state.likes}<button onClick={this.likePlus}>like+</button></h4>
-        <h4>done: {this.state.done}<button onClick={this.donePlus}>done+</button></h4>
-      </div>
+      <div>
+        {this.props.list.map( (list, index) => {
+          return (
+            <div className="thelist" key={index}>
+              <h4>{list.title}</h4>
+              <h4>like: {list.likes}<button onClick={()=> this.props.handleCheck(list)}>&hearts;</button></h4>
+              <h4>done: {list.done}<button onClick={this.donePlus}>done+</button></h4>
+            </div>
+        )
+      })}
+    </div>
    )
   }
 }
