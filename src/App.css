@@ -1,5 +1,6 @@
 body {
   text-align: center;
+  font-family: 'Roboto Condensed', sans-serif;
 }
 
 h2 {
@@ -90,6 +91,10 @@ button:hover {
 
 }
 
+h4 {
+  display: inline-block;
+}
+
 img {
   max-width: 100%;
   border-radius: 10px;
@@ -97,4 +102,16 @@ img {
 
 span {
   color: PaleVioletRed;
+  font-size: 1.2em;
+}
+
+.delete {
+  margin-left: 20px;
+  transition: 0.3s;
+  color: gray;
+}
+
+.delete:hover {
+  font-size: 1.2em;
+  color: black
 }

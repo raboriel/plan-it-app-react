@@ -4,25 +4,9 @@ class TheList extends Component {
   constructor(props){
     super(props)
     this.state ={
-      likes: 0,
-      done: 0
+
     }
-    this.likePlus = this.likePlus.bind(this)
-    this.donePlus = this.donePlus.bind(this)
   }
-  likePlus() {
-    this.setState({
-      likes: this.state.likes + 1
-    })
-  }
-
-  donePlus() {
-    this.setState({
-      done: this.state.done + 1
-    })
-  }
-
-
 
   render () {
     return (
@@ -33,10 +17,12 @@ class TheList extends Component {
               <h3>{list.title}</h3>
               <img src={list.image} alt=""/>
               <p>{list.description}</p>
-              <h4><button onClick={()=> this.props.handleCheck(list)}><span>&hearts;</span></button>{list.likes}</h4>
-              <button onClick={()=>
-              this.props.handleDelete(list)}>Delete</button>
-              <button>Edit</button>
+              <h4><button onClick={()=> this.props.handleCheck(list)}><span>&hearts;</span></button>{ list.likes }</h4>
+              <i
+              className="delete far fa-trash-alt"
+              button onClick={()=>
+              this.props.handleDelete(list)}
+              ></i>
             </div>
         )
       })}
@@ -66,7 +52,6 @@ class TheList extends Component {
 //    )
 //   }
 //   }
-
 
 
 

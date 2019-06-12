@@ -4,6 +4,8 @@ class Header extends Component {
 
   state= {
     title: '',
+    filterValue: '',
+    listsToDisplay: this.props.listTasks,
   }
 
   searchChange = (e) => {
@@ -19,18 +21,36 @@ class Header extends Component {
     this.setState({title: ''});
   }
 
+  //search
+  handleFilterChange(event) {
+  event.preventDefault();
+  const filterValue = event.target.value;
+  this.setState((prevState, props) => {
+    // remove fruits that don't contain the filter value
+    const filteredList = props.listTasks.filter(list =>
+      list.toLocaleLowerCase().includes(filterValue.toLocaleLowerCase()));
+    // perform the opposite logic to create a list of fruits that don't match.
+    console.log(filteredList);
+    return {
+      listsToDisplay: filteredList,
+      filterValue,
+      };
+    })
+  }
+
   render () {
     return (
       <div className="header">
           <h1>Buckidea</h1>
-          <form onSubmit={this.handleSearch}>
-             <input className="form-input" type="Text" value={this.state.title} placeholder="Search the Bucket List" onChange={this.searchChange} />
+          <form>
+             <input className="form-input" type="Text" value={this.props.value} placeholder="Search the Bucket List" onChange={this.props.onChange} />
          </form>
-
       </div>
     )
   }
 }
+
+
 
 
 export default Header;
